@@ -1,0 +1,158 @@
+.painel_conteudo{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: flex-start; 
+    height: calc(100vh - 60px);
+    width: 100%;
+    padding: 50px 100px;
+}
+
+.painel_conteudo .painel_items{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 300px;
+    padding-right: 20px;
+    border-right: 2px solid var(--secondary-low);
+    gap: 20px;
+    height: 100%;
+    padding-block: 50px;
+}
+
+.painel_conteudo .painel_items .painel_items_group{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    gap:10px;
+}
+
+.painel_conteudo .painel_items .painel_items_group h2{
+    color: #444;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.painel_conteudo .painel_items .painel_items_group button{
+    background: none;
+    border-style: none;
+    color: #666;
+    font-size: 16px;
+    width: 100%;
+    text-align: start;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.painel_conteudo .painel_items .painel_items_group button:hover{
+    background-color: #aaaaaa11;
+    cursor: pointer;
+}
+
+.painel_conteudo .item-content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 50px 100px;
+    width: calc(100% - 300px);
+}
+
+.painel_conteudo .item-content h1{
+    color: #444;
+    font-size: 28px;
+}
+
+.painel_conteudo .item-content h2{
+    color: #666;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+.painel_conteudo .item-content .meus-relatorios_group{
+    width: 100%;
+    margin-block: 10px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.painel_conteudo .item-content .meus-relatorios_group .meus-relatorios_group_relatorio{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background-color: #fcfcfc;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.painel_conteudo .item-content .meus-relatorios_group .meus-relatorios_group_relatorio h3{
+    color: var(--primary);
+}
+
+.painel_conteudo .item-content .meus-relatorios_group .meus-relatorios_group_relatorio p{
+    color: #666;
+}
+
+.painel_conteudo .item-content .meus-relatorios_group .meus-relatorios_group_relatorio:hover{
+    background-color: #f8f8f8;
+}
+
+.item-content .inputGroup{
+    position: relative;
+    background-color: var(--input-background);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px;
+    border: 1px solid var(--secondary-low);
+    border-bottom: 4px solid var(--bottom-border);
+    border-radius: 8px;
+    gap: 5px;
+}
+
+.item-content .meus-dados_group{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.item-content .inputGroup label{
+    color: #888;
+    font-size: 14px;
+}
+
+.item-content .inputGroup input{
+    background: transparent;
+    border-style: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.item-content .meus-dados_group button{
+     width: 100%;
+    padding: 10px 15px;
+    border: 4px solid var(--secondary-low);
+    background-color: var(--primary);
+    border-radius: 6px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.item-content .meus-dados_group button:hover{
+    transform: scale(1.025);
+    cursor: pointer;
+    background-color: var(--header)
+}

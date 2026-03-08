@@ -1,0 +1,322 @@
+.pre-cadastro_body{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--primary);
+    background-image: linear-gradient(var(--secondary-low), var(--secondary-low)), url('../../../public/assets/sp_background.jpg');
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro{
+    width: 40%;
+    height: 100vh;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+    gap: 50px;
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .pre-cadastro_title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro img{
+    height: 100px;
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .pre-cadastro_title h1,
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .done-group h1{
+    color: #444;
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .pre-cadastro_title p,
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .done-group p{
+    color: #888;
+    width: 400px;
+    text-align: center;
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .pre-cadastro_title p a{
+    color: var(--primary);
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login,
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .done-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;   
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login .auth-input-group_default{
+    position: relative;
+    background-color: var(--input-background);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px;
+    border: 1px solid var(--secondary-low);
+    border-bottom: 4px solid var(--bottom-border);
+    border-radius: 8px;
+    gap: 5px;
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login .auth-input-group_default label{
+    color: #888;
+    font-size: 14px;
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login .auth-input-group_default input{
+    background: transparent;
+    border-style: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login button{
+    width: 100%;
+    padding: 10px 15px;
+    border: 4px solid var(--secondary-low);
+    background-color: var(--primary);
+    border-radius: 6px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login button:hover{
+    transform: scale(1.025);
+    cursor: pointer;
+    background-color: var(--header)
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login a,
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro .done-group a{
+    color: var(--primary);
+    width: 400px;
+    text-align: center;
+}
+
+.divider{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+    gap: 15px;
+}
+
+.mini-divider{
+    display: none;
+    width: 100%;
+    height: 10px;
+    background-color: var(--primary);
+    position: fixed;
+    top: 0;
+
+}
+
+.divider p{
+    color: #888;
+}
+
+.divider span{
+    width: 50%;
+    border-bottom: 1px solid #88888825;
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro  .group_alternative-login button{
+    width: 400px;
+    padding: 10px 15px;
+    border: 4px solid var(--focus-input);
+    background-color: var(--focus-input);
+    border-radius: 6px;
+    font-size: 16px;
+    color: #444;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro  .group_alternative-login button img{
+    height: 24px;
+}
+
+.pre-cadastro_body .pre-cadastro_box-pre-cadastro  .group_alternative-login button:hover{
+    transform: scale(1.025);
+    cursor: pointer;
+    background-color: #F2F2F2;
+    border: 4px solid #F2F2F2;
+}
+
+/* Mobile pequeno */
+@media (max-width: 360px) {
+
+  }      /* Cobre a maioria dos Android "pequenos" */
+
+/* Mobile padrão */
+@media (max-width: 480px) { 
+    .pre-cadastro_body{
+        width: 100%;
+        height: 100vh;
+        padding: 0 20%;
+        background-color: #fff;
+        background-image:none;
+    } 
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro{
+        width: 100%;
+        height: 100vh;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10%;
+        gap: 50px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro img{
+        height: 80px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .pre-cadastro_title p,
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .done-group p{
+        width: 320px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login .auth-input-group_default{
+        width: 320px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login button{
+        width: 320px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login a,
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .done-group a{
+        width: 320px;
+    }
+    .mini-divider{
+        display: flex;
+        width: 100%;
+        height: 10px;
+        background-color: var(--primary);
+    }
+}      /* iPhones “menores”, Androids comuns */
+
+/* Tablet vertical */
+@media (max-width: 768px) {  
+    .pre-cadastro_body{
+        width: 100%;
+        height: 100vh;
+        padding: 0 20%;
+        background-color: #fff;
+        background-image:none;
+    } 
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro{
+        width: 100%;
+        height: 100vh;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10%;
+        gap: 50px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro img{
+        height: 80px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .pre-cadastro_title p,
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .done-group p{
+        width: 460px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login .auth-input-group_default{
+        width: 460px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login button{
+        width: 400px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login a,
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .done-group a{
+        width: 400px;
+    }
+    .mini-divider{
+        display: flex;
+        width: 100%;
+        height: 10px;
+        background-color: var(--primary);
+    }
+
+}      /* iPad Mini, tablets pequenos */
+
+/* Tablet horizontal / telas médias */
+@media (max-width: 1024px) {      
+    .pre-cadastro_body{
+        width: 100%;
+        height: 100vh;
+        padding: 0 20%;
+        background-color: #fff;
+        background-image:none;
+    } 
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro{
+        width: 100%;
+        height: 100vh;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10%;
+        gap: 50px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro img{
+        height: 80px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .pre-cadastro_title p,
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .done-group p{
+        width: 320px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login .auth-input-group_default{
+        width: 320px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login button{
+        width: 320px;
+    }
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .group_default-login a,
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro .done-group a{
+        width: 320px;
+    }
+    .mini-divider{
+        display: flex;
+        width: 100%;
+        height: 10px;
+        background-color: var(--primary);
+    }
+ }     /* iPad landscape, notebooks pequenos */
+
+/* Laptop / monitores padrão */
+@media (min-width: 1280px) {
+    .pre-cadastro_body .pre-cadastro_box-pre-cadastro img{
+        height: 80px;
+    }
+    .mini-divider{
+        display: none;
+    }
+ }     /* 720p/900p laptops */
+
+/* Desktop grande */
+@media (min-width: 1440px) {  }     /* Monitores full HD e maiores */
+
+/* Telas muito grandes */
+@media (min-width: 1920px) { }     /* Full HD e ultra-wide básicos */

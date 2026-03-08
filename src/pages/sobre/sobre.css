@@ -1,0 +1,99 @@
+.sobre-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.sobre_conteudo{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    text-align: justify;
+    gap: 20px;
+    padding: 40px 0px;
+}
+
+.sobre_conteudo h1{
+    color: var(--primary);
+    font-size: 28px;
+    width: 100%;
+    text-align: center;
+}
+
+.sobre_conteudo h2{
+    color: #444;
+    font-size: 24px;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.sobre_conteudo h3{
+    color: var(--primary);
+    font-size: 20px;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-align: center;
+}
+
+.sobre_conteudo p{
+    color: #666;
+}
+
+.sobre_conteudo .section-separator{
+    margin: 10px 0px;
+}
+
+.sobre_conteudo .h3-topic{
+    border: 1px solid var(--primary);
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sobre_conteudo .grupo-missao{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+}
+
+.sobre_conteudo .grupo-missao .texto-missao{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+}
+
+.sobre_conteudo .img-missao{
+    width: 400px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.sobre_conteudo ul{
+    list-style: none;  
+    width: 100%;  
+}
+
+.sobre_conteudo ul li{
+    margin: 10px 0px;
+    padding: 15px 15px;
+    color: #fff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
