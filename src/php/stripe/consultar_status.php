@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-\Stripe\Stripe::setApiKey('');
+\Stripe\Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
 
 header('Content-Type: application/json');
 

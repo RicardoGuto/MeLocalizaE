@@ -6,8 +6,23 @@ import './sobre.css'
 import Footer from '../components/footer';
 import HomemChaveFoto from './img/homem-segurando-chave.png'
 import logoMelocalizaE from './../../assets/logo_vetor_v1.png'
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function Sobre({}){
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const verified = localStorage.getItem("verificado");
+        const auth = localStorage.getItem("auth");
+        if(auth === "true"){
+            if(verified === "false"){
+                navigate('/EmailVerify')
+            }
+        }
+    }, []);
+
     return(
         <div className="sobre-container">
             <Header></Header>

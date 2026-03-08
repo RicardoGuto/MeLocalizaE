@@ -13,7 +13,8 @@ if(isset($_SESSION['logado'])){
     $response = [];
 
     $email = $_SESSION['usuario']['email'];
-
+    session_write_close();
+    
     $sql = mysqli_query($mysqli, "SELECT * FROM pagamentos WHERE email = '$email'");
 
     if($sql->num_rows>0){

@@ -9,9 +9,15 @@ export default function Painel({isAuth, setIsAuth}){
 
     const navigate = useNavigate();
     useEffect(() => {
+        const verified = localStorage.getItem("verificado");
+        console.log(verified)
         const auth = localStorage.getItem("auth");
         if (auth === "false") {
             navigate('/Autenticacao')
+        }else if(auth === "true"){
+            if(verified === "false"){
+              navigate('/EmailVerify')
+            }
         }
     }, []);
 

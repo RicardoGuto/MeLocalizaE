@@ -11,8 +11,6 @@ header('Access-Control-Allow-Headers: Content-Type');
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Pragma: no-cache");
 
-session_start();
-
 header('Content-Type: application/json');
 
 $data = json_decode(file_get_contents("php://input"), true);

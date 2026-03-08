@@ -23,6 +23,7 @@ if(!isset($_SESSION['logado'])){
 
 
 $email = $_SESSION['usuario']['email'];
+session_write_close();
 
 $stmt = $mysqli->prepare("SELECT senha FROM usuarios WHERE email = ?");
 $stmt->bind_param("s", $email);

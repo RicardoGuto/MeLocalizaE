@@ -49,6 +49,7 @@ export default function Header({isAuth, setIsAuth}) {
       const data = await response.json();
       if(data.status === 'success'){
         navigate('/');
+        localStorage.setItem('auth', "false");
         window.location.reload();
       }else{
         alert("Erro no logout. Tente novamente.")

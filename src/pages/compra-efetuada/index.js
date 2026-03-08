@@ -11,12 +11,17 @@ export default function CompraEfetuada({isAuth, setIsAuth}){
     
     const navigate = useNavigate();
 
-    useEffect(()=>{
+    useEffect(() => {
+        const verified = localStorage.getItem("verificado");
         const auth = localStorage.getItem("auth");
         if (auth === "false") {
-            navigate('/')      
-        }    
-    },[])
+            navigate('/Autenticacao')
+        }else if(auth === "true"){
+            if(verified === "false"){
+              navigate('/EmailVerify')
+            }
+        }
+    }, []);
 
     const [loading, setLoading] = useState(true)
     const [statusPagamento, setStatusPagamento] = useState(false);

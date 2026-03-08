@@ -14,10 +14,13 @@ header("Pragma: no-cache");
 session_start();
 
 if(isset($_SESSION['logado'])){
+    
+    $email = $_SESSION['usuario']['email'];
+    session_write_close();
 
     $response = [];
 
-    $email = $_SESSION['usuario']['email'];
+
     $sql_dados_basicos = mysqli_query($mysqli, "SELECT * FROM usuarios WHERE email = '$email'");
     if($sql_dados_basicos->num_rows>0){
         $row = $sql_dados_basicos->fetch_assoc();

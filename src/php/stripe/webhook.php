@@ -2,11 +2,14 @@
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../config.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 header('Content-Type: application/json');
 
-\Stripe\Stripe::setApiKey('');
+\Stripe\Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
 
-$endpoint_secret = '';
+$endpoint_secret =  $_ENV['STRIPE_WEBHOOK_SECRET'];
 
 $logFile = __DIR__ . '/webhook.log';
 

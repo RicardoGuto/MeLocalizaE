@@ -2,15 +2,24 @@ import './cadastro.css'
 import google_logo from '../../assets/google_logo.webp'
 import Icon from '@mdi/react';
 import { mdiAlertCircleOutline, mdiEye, mdiEyeClosed } from '@mdi/js'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {API_BASE_URL} from '../../global.js'
 import { useNavigate } from "react-router-dom";
+import LoadingElement from '../components/loading_element/index.js';
 
 export default function Cadastro({isAuth, setIsAuth}) {
 
     const navigate = useNavigate();
 
+    useEffect(()=>{
+        const auth = localStorage.getItem("auth");
+        if (auth === "true") {
+            navigate('/')      
+        }    
+    },[])
+
     const [seePassword, setSeePassword] = useState(false);
+    const [loadingCadastro, setLoadingCadastro] = useState(false);
 
     const [nome, setNome] = useState('');
     const [sobrenome, setSobrenome] = useState('');
@@ -73,60 +82,74 @@ export default function Cadastro({isAuth, setIsAuth}) {
     }
 
     const cadastrar = async () => {
+        if(loadingCadastro) return;
+        setLoadingCadastro(true);
+
 
         if(nome === ''){
             setErro(true); 
             setErroMsg("Campo 'Nome' não pode ficar em branco");
+            setLoadingCadastro(false);
             return;
         } 
         if(nome.length < 3){
             setErro(true); 
             setErroMsg("Insira um nome realmente válido");
+            setLoadingCadastro(false);
             return;
         } 
         if(sobrenome === ''){
             setErro(true); 
             setErroMsg("Campo 'Sobrenome' não pode ficar em branco");
+            setLoadingCadastro(false);
             return;
         } 
         if(sobrenome.length < 3){
             setErro(true); 
             setErroMsg("Insira um sobrenome realmente válido");
+            setLoadingCadastro(false);
             return;
         } 
         if(email === ''){
             setErro(true); 
             setErroMsg("Campo 'Email' não pode ficar em branco");
+            setLoadingCadastro(false);
             return;
         } 
         if(!validarEmail(email)){
             setErro(true);
             setErroMsg("Insira um e-mail realmente válido");
+            setLoadingCadastro(false);
             return;
         }
         if(cpf === ''){
             setErro(true); 
             setErroMsg("Campo 'CPF' não pode ficar em branco");
+            setLoadingCadastro(false);
             return;
         } 
         if(!validarCPF(cpf)){
             setErro(true);
             setErroMsg("Insira um CPF realmente válido");
+            setLoadingCadastro(false);
             return;
         }
         if(senha === ''){
             setErro(true); 
             setErroMsg("Campo 'Senha' não pode ficar em branco");
+            setLoadingCadastro(false);
             return;
         } 
         if(!validarSenha(senha)){
             setErro(true);
             setErroMsg("A senha deve ter entre 8 e 24 caracteres, incluir uma letra maiúscula, um número e um caractere especial");
+            setLoadingCadastro(false);
             return;
         }
         if(!termos){
             setErro(true); 
             setErroMsg("Você precisa concordar com nossa política de privacidade para se cadastrar");
+            setLoadingCadastro(false);
             return;
         }
 
@@ -149,17 +172,20 @@ export default function Cadastro({isAuth, setIsAuth}) {
             if(data.status === 'success'){
                 localStorage.setItem("auth", "true");
                 setIsAuth(true)
-                navigate('/');
+                navigate('/EmailVerify');
+                setLoadingCadastro(false);
 
             }else{
                 setErro(true); 
                 setErroMsg(data.error);
                 localStorage.setItem("auth", "false");
-                setIsAuth(false)
+                setIsAuth(false);
+                setLoadingCadastro(false);
             }
            
         } catch (error) {
             console.log('Erro de conexão:', error);
+            setLoadingCadastro(false);
         }
     }
 
@@ -232,7 +258,7 @@ export default function Cadastro({isAuth, setIsAuth}) {
                         <label for=''>Desejo receber notícias e informações promocionais por e-mail</label>
                     </div>
 
-                    <button onClick={()=>cadastrar()}>Concluir</button>
+                    <button onClick={()=>cadastrar()}>{!loadingCadastro ? 'Concluir' : <LoadingElement color={"#fff"} size={1}></LoadingElement>}</button>
                 </section>
                 {/*
                 <section className='divider'>

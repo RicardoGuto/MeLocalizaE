@@ -50,6 +50,18 @@ const avaliacoes = [
 
 export default function Home({isAuth, setIsAuth}) {
 
+    const navigate = useNavigate();
+    useEffect(() => {
+        const auth = localStorage.getItem("auth");
+        const verified = localStorage.getItem("verificado");
+        if (auth === "true") {
+            console.log("Home: ",verified);
+            if(verified === "false"){
+              navigate('/EmailVerify')
+            }
+        }
+    }, []);
+
   const [loadingPesquisar, setLoadingPesquisar] = useState(false);
 
   const [popup, setPopup] = useState(false);
@@ -59,13 +71,6 @@ export default function Home({isAuth, setIsAuth}) {
   const [popupIcone, setPopupIcone] = useState('erro');
 
   const [checkoutVisibility, setCheckoutVisibility] = useState(false)
-
-  //BLOCOS APRESENTAÇÃO
-  const [infoCriminalidade, setInfoCriminalidade] = useState(false);
-  const [infoOpinioes, setInfoOpinioes] = useState(false);
-  const [infoDadosDemograficos, setInfoDadosDemograficos] = useState(false);
-  const [infoDesastresNaturais, setInfoDesastresNaturais] = useState(false);
-  const [infoLocaisProximos, setInfoLocaisProximos] = useState(false);
 
   const [totalRelatorios, setTotalRelatorios] = useState(0);
 
@@ -91,7 +96,6 @@ export default function Home({isAuth, setIsAuth}) {
 
   //CONSULTA DE CEP / LOGRADOURO
   const [searchLocalidade, setSearchLocalidade] = useState('');
-  const navigate = useNavigate();
   const [sugestoes, setSugestoes] = useState([]);
   const [scriptCarregado, setScriptCarregado] = useState(false);
 
@@ -293,8 +297,6 @@ export default function Home({isAuth, setIsAuth}) {
               </Swiper>
 
           <div className="home_secao-1_como-funciona" id="planos-melocalizae">
-
-            {infoCriminalidade && <img src={imgAssalto} />}
 
             <div className="text-box">
               <h2><Icon path={mdiStarCheck} size={1} /> Evite surpresas!</h2>

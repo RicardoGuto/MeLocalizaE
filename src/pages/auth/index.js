@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import Icon from '@mdi/react';
 import { mdiAlertCircleOutline } from '@mdi/js';
+import LoadingElement from '../components/loading_element';
 
 export default function Autenticacao({isAuth, setIsAuth}) {
 
@@ -11,27 +12,37 @@ export default function Autenticacao({isAuth, setIsAuth}) {
     const navigate = useNavigate();
     useEffect(()=>{
         const auth = localStorage.getItem("auth");
+        const verified = localStorage.getItem("verificado");
         if (auth === "true") {
-            navigate('/')      
+            if(verified === "false"){
+                navigate('/EmailVerify')
+            }else{
+                navigate('/')  
+            }
+    
         }    
     },[])
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-
+    const [loadingLogin, setLoadingLogin] = useState(false);
     const [erro, setErro] = useState(false);
     const [erroMsg, setErroMsg] = useState('');
     
     const login = async () => {
-        
+        if(loadingLogin) return;
+        setLoadingLogin(true);
+
         if(email === ''){
             setErro(true); 
             setErroMsg("Insira o e-mail");
+            setLoadingLogin(false);
             return;
         } 
         if(senha === ''){
             setErro(true); 
             setErroMsg("Insira a senha");
+            setLoadingLogin(false);
             return;
         } 
 
@@ -54,15 +65,44 @@ export default function Autenticacao({isAuth, setIsAuth}) {
                 localStorage.setItem("auth", "true");
                 setErro(false);
                 setIsAuth(true);
-                navigate('/');
+                if(!checkVerify()){
+                    navigate('/EmailVerify')
+                    setLoadingLogin(false);
+                }else{
+                    navigate('/');
+                    setLoadingLogin(false);
+                }
+
             }else{
                 localStorage.setItem("auth", "false");
                 setErroMsg('E-mail ou senha incorretos');
                 setIsAuth(false);
                 setErro(true);
+                setLoadingLogin(false);
             }
         }catch(error){
             localStorage.setItem("auth", "false");
+            setLoadingLogin(false);
+        }
+    }
+
+    const checkVerify = async () => {
+        const response = await fetch("http://localhost/melocalizae/src/php/auth/check-verify.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include",
+        });
+    
+        const data = await response.json();
+        console.log("retorno bd:" , JSON.stringify(data));
+        if (data.status === 'success') {
+            localStorage.setItem("verificado", "true");
+            return "true";
+        }else{
+            localStorage.setItem("verificado", "false");
+            return "false";
         }
     }
 
@@ -71,7 +111,7 @@ export default function Autenticacao({isAuth, setIsAuth}) {
             <div className='autenticacao_box-autenticacao'>
                 <div className='autenticacao_title'>
                     <h1>Acessar sua conta</h1>
-                    <p>Não possui uma conta? <a href='#'>Cadastre-se!</a></p>
+                    <p>Não possui uma conta? <a href='/Cadastro'>Cadastre-se!</a></p>
                 </div>
 
                 
@@ -82,7 +122,7 @@ export default function Autenticacao({isAuth, setIsAuth}) {
                     </div>}
 
                     <div className='auth-input-group_default'>
-                        <label for=''>E-mail ou CPF</label>
+                        <label for=''>E-mail</label>
                         <input type='text' value={email} onChange={(e)=>{setEmail(e.target.value)}} placeholder='Insira seu e-mail ou CPF'></input>
                     </div>
                     <div className='auth-input-group_default'>
@@ -90,11 +130,11 @@ export default function Autenticacao({isAuth, setIsAuth}) {
                         <input type='password' value={senha} onChange={(e)=>{setSenha(e.target.value)}} placeholder='Insira sua senha'></input>
                     </div>
 
-                    <button onClick={()=>login()}>Acessar</button>
+                    <button onClick={()=>login()}>{!loadingLogin ? 'Acessar' : <LoadingElement color={"#fff"} size={1}></LoadingElement>}</button>
                     <a href='#'>Esqueci minha senha</a>
                 </section>
 
-                <section className='divider'>
+                {/*<section className='divider'>
                     <span></span>
                     <p>Ou</p>
                     <span></span>
@@ -102,7 +142,7 @@ export default function Autenticacao({isAuth, setIsAuth}) {
 
                 <section className='group_alternative-login'>                    
                     <button><img src={google_logo}/>Acessar com o Google</button>
-                </section>
+                </section>*/}
             </div>
         </div>
     )

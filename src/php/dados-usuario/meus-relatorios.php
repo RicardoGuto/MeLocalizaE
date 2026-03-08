@@ -13,7 +13,7 @@ if(isset($_SESSION['logado'])){
     $response = [];
 
     $usuario_id = $_SESSION['usuario']['id'];
-
+    session_write_close();
     $sql = mysqli_query($mysqli, "SELECT * FROM relatorios_adquiridos WHERE usuario_id = '$usuario_id'");
 
     if($sql->num_rows>0){

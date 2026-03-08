@@ -1,7 +1,22 @@
+import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import './privacypolicy.css'
+import { useEffect } from "react";
 
 export default function PrivacyPolicy({}){
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const verified = localStorage.getItem("verificado");
+        const auth = localStorage.getItem("auth");
+        if(auth === "true"){
+            if(verified === "false"){
+                navigate('/EmailVerify')
+            }
+        }
+    }, []);
+
     return(
         <div>
             <Header></Header>

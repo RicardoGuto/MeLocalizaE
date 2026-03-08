@@ -1,10 +1,23 @@
 import Header from "../components/header";
 import './faleconosco.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Icon from '@mdi/react';
 import { mdiMessageDraw } from '@mdi/js';
 import Footer from "../components/footer";
+import { useNavigate } from "react-router-dom";
 export default function FaleConosco({isAuth, setIsAuth}){
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const verified = localStorage.getItem("verificado");
+        const auth = localStorage.getItem("auth");
+        if(auth === "true"){
+            if(verified === "false"){
+                navigate('/EmailVerify')
+            }
+        }
+    }, []);
 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');

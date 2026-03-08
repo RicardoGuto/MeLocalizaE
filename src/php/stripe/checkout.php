@@ -9,7 +9,7 @@ header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
 
-\Stripe\Stripe::setApiKey('');
+\Stripe\Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
 
 header('Content-Type: application/json');
 

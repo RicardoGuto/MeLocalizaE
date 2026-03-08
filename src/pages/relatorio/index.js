@@ -24,12 +24,17 @@ export default function Relatorio({isAuth, setIsAuth}) {
 
   const [loadBar, setLoadBar] = useState(0);
 
-  useEffect(() => {
-      const auth = localStorage.getItem("auth");
-      if (auth === "false") {
-          navigate('/Autenticacao')
-      }
-  }, []);
+    useEffect(() => {
+        const verified = localStorage.getItem("verificado");
+        const auth = localStorage.getItem("auth");
+        if (auth === "false") {
+            navigate('/Autenticacao')
+        }else if(auth === "true"){
+            if(verified === "false"){
+              navigate('/EmailVerify')
+            }
+        }
+    }, []);
 
   const center = useMemo(() => {
     if (!resultado) return null;
@@ -58,7 +63,7 @@ export default function Relatorio({isAuth, setIsAuth}) {
   }, [resultado]);
 
   const [gratuito, setGratuito] = useState(true);
-  const [pago, setPago] = useState(true);
+
   const [loading, setLoading] = useState(true)
   const mapRef = useRef(null);
   const streetRef = useRef(null);

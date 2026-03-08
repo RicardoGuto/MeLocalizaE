@@ -18,11 +18,13 @@ $complemento = $data['complemento'] ?? null;
 $bairro = $data['bairro'] ?? null;
 $cidade = $data['cidade'] ?? null;
 $uf = $data['uf'] ?? null;
+$email = $_SESSION['usuario']['email'];
+session_write_close();
 
 if(isset($_SESSION['logado'])){
     $response = [];
 
-    $email = $_SESSION['usuario']['email'];
+
 
     $sql = mysqli_query($mysqli, "
         UPDATE usuarios SET 

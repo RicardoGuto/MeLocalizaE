@@ -3,7 +3,6 @@ import './checkout.css'
 import { loadStripe } from "@stripe/stripe-js";
 import LoadingElement from '../loading_element';
 
-
 export default function Checkout({checkoutVisibility, setCheckoutVisibility, totalRelatorios}){
 
     const [loadingCheckout, setLoadingCheckout] = useState(false);
