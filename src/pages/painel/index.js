@@ -4,6 +4,7 @@ import "./painel.css"
 import Icon from '@mdi/react';
 import { mdiChevronRight } from '@mdi/js';
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../global";
 
 export default function Painel({isAuth, setIsAuth}){  
 
@@ -61,7 +62,7 @@ export default function Painel({isAuth, setIsAuth}){
 
 
     const getData = async()=>{
-        const response = await fetch("http://localhost/melocalizae/src/php/dados-usuario/get_user_data.php", {
+        const response = await fetch(`${API_BASE_URL}/dados-usuario/get_user_data.php`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -89,7 +90,7 @@ export default function Painel({isAuth, setIsAuth}){
     useEffect(()=>{getData(); get_relatorios(); getPagamentos()},[view])
 
     const atualizarEndereco = async () => {
-        const response = await fetch("http://localhost/melocalizae/src/php/dados-usuario/atualizar_endereco.php", {
+        const response = await fetch(`${API_BASE_URL}/dados-usuario/atualizar_endereco.php`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -117,7 +118,7 @@ export default function Painel({isAuth, setIsAuth}){
     
 
     const get_relatorios = async () => {
-        const response = await fetch("http://localhost/melocalizae/src/php/dados-usuario/meus-relatorios.php",{
+        const response = await fetch(`${API_BASE_URL}/dados-usuario/meus-relatorios.php`,{
             method:'POST',
             headers: {
                 "Content-Type": "application/json"

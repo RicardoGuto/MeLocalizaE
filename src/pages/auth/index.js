@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Icon from '@mdi/react';
 import { mdiAlertCircleOutline } from '@mdi/js';
 import LoadingElement from '../components/loading_element';
+import { API_BASE_URL } from '../../global';
 
 export default function Autenticacao({isAuth, setIsAuth}) {
 
@@ -47,7 +48,7 @@ export default function Autenticacao({isAuth, setIsAuth}) {
         } 
 
         try{
-            const response = await fetch("http://localhost/melocalizae/src/php/auth/login.php", {
+            const response = await fetch(`${API_BASE_URL}/auth/login.php`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -87,7 +88,7 @@ export default function Autenticacao({isAuth, setIsAuth}) {
     }
 
     const checkVerify = async () => {
-        const response = await fetch("http://localhost/melocalizae/src/php/auth/check-verify.php", {
+        const response = await fetch(`${API_BASE_URL}/auth/check-verify.php`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

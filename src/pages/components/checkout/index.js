@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './checkout.css'
-import { loadStripe } from "@stripe/stripe-js";
 import LoadingElement from '../loading_element';
+import { API_BASE_URL } from '../../../global';
 
 export default function Checkout({checkoutVisibility, setCheckoutVisibility, totalRelatorios}){
 
@@ -21,7 +21,7 @@ export default function Checkout({checkoutVisibility, setCheckoutVisibility, tot
 
     const validarPreco = async () => {
         setLoadingPreco(true)
-        const response = await fetch("http://localhost/melocalizae/src/php/checkout/validar-preco.php",{
+        const response = await fetch(`${API_BASE_URL}/checkout/validar-preco.php`,{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -43,7 +43,7 @@ export default function Checkout({checkoutVisibility, setCheckoutVisibility, tot
         setLoadingDesconto(true)
         if(cupomCode === '') return
         console.log(codigo)
-        const response = await fetch("http://localhost/melocalizae/src/php/checkout/validar-cupom.php", {
+        const response = await fetch(`${API_BASE_URL}/checkout/validar-cupom.php`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -89,7 +89,7 @@ export default function Checkout({checkoutVisibility, setCheckoutVisibility, tot
 
     const checkout = async () => {
         setLoadingCheckout(true)
-        const response = await fetch("http://localhost/melocalizae/src/php/stripe/checkout.php", {
+        const response = await fetch(`${API_BASE_URL}/stripe/checkout.php`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

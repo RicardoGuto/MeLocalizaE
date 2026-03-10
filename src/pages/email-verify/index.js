@@ -44,7 +44,7 @@ export default function EmailVerify({isAuth, setIsAuth}) {
         } 
         
         try {
-            const response = await fetch(`http://localhost/melocalizae/src/php/auth/email_verify.php`, {
+            const response = await fetch(`${API_BASE_URL}/auth/email_verify.php`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials:'include',

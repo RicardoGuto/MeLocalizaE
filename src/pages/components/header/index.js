@@ -5,11 +5,12 @@ import logo_v1 from '../../../assets/logo_vetor_v1.png'
 import logo_all_white from '../../../assets/logo_vetor_v1_all_white.png'
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../../../global';
 
 export default function Header({isAuth, setIsAuth}) {
 
     const getData = async()=>{
-      const response = await fetch("http://localhost/melocalizae/src/php/dados-usuario/get_user_data.php", {
+      const response = await fetch(`${API_BASE_URL}/dados-usuario/get_user_data.php`, {
           method: "POST",
           headers: {
               "Content-Type": "application/json"
@@ -38,7 +39,7 @@ export default function Header({isAuth, setIsAuth}) {
 
 
     const logout = async () => {
-      const response = await fetch("http://localhost/melocalizae/src/php/auth/logout.php", {
+      const response = await fetch(`${API_BASE_URL}/auth/logout.php`, {
           method: "POST",
           headers: {
               "Content-Type": "application/json"

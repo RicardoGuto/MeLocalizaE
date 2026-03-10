@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import { mdiMapMarkerRadius } from '@mdi/js';
 import Footer from '../components/footer';
+import { API_BASE_URL } from '../../global';
 
 const GOOGLE_API = 'AIzaSyCRJnBSTStmvD5-WUr03HCQNHJ44N4Nz5g';
 
@@ -101,7 +102,7 @@ export default function Relatorio({isAuth, setIsAuth}) {
   const baseIndicadores = async () => {
     setLoading(true)
       try{
-        const response = await fetch('http://localhost/melocalizae/src/php/relatorio/calculo-indicadores.php',{
+        const response = await fetch(`${API_BASE_URL}/relatorio/calculo-indicadores.php`,{
           method:'POST',
           credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -140,7 +141,7 @@ export default function Relatorio({isAuth, setIsAuth}) {
     setLoading(true);
     await baseIndicadores();
     try{
-      const response = await fetch('http://localhost/melocalizae/src/php/relatorio/get_dados_relatorio.php',{
+      const response = await fetch(`${API_BASE_URL}/relatorio/get_dados_relatorio.php`,{
         method:'POST',
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -169,7 +170,7 @@ export default function Relatorio({isAuth, setIsAuth}) {
   const verificarAquisicaoRelatorio = async () => {
     setLoading(true)
     try{
-      const response = await fetch('http://localhost/melocalizae/src/php/relatorio/verificar_aquisicao.php', {
+      const response = await fetch(`${API_BASE_URL}/relatorio/verificar_aquisicao.php`, {
         method:'POST',
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -302,7 +303,7 @@ export default function Relatorio({isAuth, setIsAuth}) {
       if(!isAuth) return navigate('/Autenticacao')
 
       try{
-      const response = await fetch('http://localhost/melocalizae/src/php/relatorio/desbloquear-relatorio.php', {
+      const response = await fetch(`${API_BASE_URL}/relatorio/desbloquear-relatorio.php`, {
         method:'POST',
         headers: { "Content-Type": "application/json" },
         credentials: "include",

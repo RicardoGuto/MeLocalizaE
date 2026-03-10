@@ -3,9 +3,9 @@ import google_logo from '../../assets/google_logo.webp'
 import Icon from '@mdi/react';
 import { mdiAlertCircleOutline, mdiEye, mdiEyeClosed } from '@mdi/js'
 import { useEffect, useState } from 'react'
-import {API_BASE_URL} from '../../global.js'
 import { useNavigate } from "react-router-dom";
 import LoadingElement from '../components/loading_element/index.js';
+import { API_BASE_URL } from '../../global';
 
 export default function Cadastro({isAuth, setIsAuth}) {
 
@@ -154,7 +154,7 @@ export default function Cadastro({isAuth, setIsAuth}) {
         }
 
         try {
-            const response = await fetch(`http://localhost/melocalizae/src/php/auth/cadastro.php`, {
+            const response = await fetch(`${API_BASE_URL}/auth/cadastro.php`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials:'include',

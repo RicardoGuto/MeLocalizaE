@@ -14,6 +14,7 @@ import FaleConosco from './pages/fale-conosco';
 import CompraEfetuada from './pages/compra-efetuada';
 import CompraCancelada from './pages/compra-cancelada';
 import EmailVerify from './pages/email-verify';
+import { API_BASE_URL } from './global';
 
 const GOOGLE_API = 'AIzaSyCRJnBSTStmvD5-WUr03HCQNHJ44N4Nz5g';
 const libraries = ["places"];
@@ -23,7 +24,7 @@ export default function App({}) {
   const [isAuth, setIsAuth] = useState(false);
 
   const checkAuth = async () => {
-    const response = await fetch("http://localhost/melocalizae/src/php/auth/protect.php", {
+    const response = await fetch(`${API_BASE_URL}/auth/protect.php`, {
           method: "POST",
           headers: {
               "Content-Type": "application/json"
@@ -44,7 +45,7 @@ export default function App({}) {
   }
 
   const checkVerify = async () => {
-    const response = await fetch("http://localhost/melocalizae/src/php/auth/check-verify.php", {
+    const response = await fetch(`${API_BASE_URL}/auth/check-verify.php`, {
           method: "POST",
           headers: {
               "Content-Type": "application/json"

@@ -6,6 +6,7 @@ import { mdiCashCheck, mdiCashClock, mdiCashPlus } from "@mdi/js";
 import './compra-efetuada.css'
 import Footer from "../components/footer";
 import LoadingElement from "../components/loading_element";
+import { API_BASE_URL } from "../../global";
 
 export default function CompraEfetuada({isAuth, setIsAuth}){
     
@@ -36,7 +37,7 @@ export default function CompraEfetuada({isAuth, setIsAuth}){
                 .get("session_id");
 
             const response = await fetch(
-                "http://localhost/melocalizae/src/php/stripe/consultar_status.php",
+                `${API_BASE_URL}/stripe/consultar_status.php`,
                 {
                     method: "POST",
                     headers: {

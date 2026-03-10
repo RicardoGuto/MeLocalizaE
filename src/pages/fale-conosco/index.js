@@ -6,6 +6,7 @@ import { mdiAlertCircleOutline, mdiMessageCheck, mdiMessageDraw } from '@mdi/js'
 import Footer from "../components/footer";
 import { useNavigate } from "react-router-dom";
 import LoadingElement from "../components/loading_element";
+import { API_BASE_URL } from "../../global";
 export default function FaleConosco({isAuth, setIsAuth}){
 
     const navigate = useNavigate();
@@ -87,7 +88,7 @@ export default function FaleConosco({isAuth, setIsAuth}){
         }
 
         try{
-            const response = await fetch('http://localhost/melocalizae/src/php/fale-conosco/envio-msg.php',{
+            const response = await fetch(`${API_BASE_URL}/fale-conosco/envio-msg.php`,{
                 headers: { 'Content-Type': 'application/json' },
                 method:'POST',
                 credentials:'include',
