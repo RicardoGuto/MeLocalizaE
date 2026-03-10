@@ -32,13 +32,13 @@ const avaliacoes = [
       nome: "Carlos Rodrigues",
       data: "06 de Março de 2026",
       texto:
-        "Antes de comprar meu primeiro apartamento eu queria ter certeza de que estava fazendo um bom investimento. O Me localizaê me ajudou a entender melhor a região, principalmente em relação à segurança e infraestrutura ao redor.",
+        "Antes de comprar meu primeiro apartamento eu queria ter certeza de que estava fazendo um bom investimento. O Me localizaÊ me ajudou a entender melhor a região, principalmente em relação à segurança e infraestrutura ao redor.",
     },
     {
       nome: "Amanda Silva",
       data: "12 de Março de 2026",
       texto:
-        "Eu estava me mudando do interior para São Paulo e tinha muito medo de escolher um bairro ruim. Usei o Me localizaê para analisar algumas ruas antes de fechar o contrato do apartamento.",
+        "Eu estava me mudando do interior para São Paulo e tinha muito medo de escolher um bairro ruim. Usei o Me localizaÊ para analisar algumas ruas antes de fechar o contrato do apartamento.",
     },
     {
       nome: "Lucas Pereira",

@@ -3,13 +3,7 @@
 require '../config.php';
 
 include('./boundingBoxLatLon.php'); 
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: http://localhost:3000');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Pragma: no-cache");
+include('../headers.php');
 
 header('Content-Type: application/json');
 
@@ -31,9 +25,15 @@ $geoapify_api = '58a116017d2c4b869a0fb0216bdb937a';
 #PONTOS DE ÔNIBUS
 function pontos_onibus($lat, $lng, $mysqli){    
     $lista = []; 
+    $bbox = getBoundingBox($lat, $lng, 1.0);
+
+    $lat_min = $bbox['lat_min'];
+    $lat_max = $bbox['lat_max'];
+    $lng_min = $bbox['lng_min'];
+    $lng_max = $bbox['lng_max'];
 
     $sql = "
-        SELECT *,
+        SELECT pt_id,
         (
             6371 * ACOS(
                 COS(RADIANS($lat)) * COS(RADIANS(latitude)) * 
@@ -42,8 +42,10 @@ function pontos_onibus($lat, $lng, $mysqli){
             )
         ) AS distancia
         FROM sp_pontos_onibus
+        WHERE latitude BETWEEN $lat_min AND $lat_max
+        AND longitude BETWEEN $lng_min AND $lng_max
         HAVING distancia <= 1
-        ORDER BY distancia;
+        ORDER BY distancia
         ";
 
     $result = mysqli_query($mysqli, $sql);
@@ -59,8 +61,15 @@ function pontos_onibus($lat, $lng, $mysqli){
 function estacoes_metro($lat, $lng, $mysqli){
     $lista = []; 
 
+    $bbox = getBoundingBox($lat, $lng, 3.0);
+
+    $lat_min = $bbox['lat_min'];
+    $lat_max = $bbox['lat_max'];
+    $lng_min = $bbox['lng_min'];
+    $lng_max = $bbox['lng_max'];
+
     $sql = "
-        SELECT *,
+        SELECT emt_nome,
         (
             6371 * ACOS(
                 COS(RADIANS($lat)) * COS(RADIANS(latitude)) * 
@@ -69,8 +78,10 @@ function estacoes_metro($lat, $lng, $mysqli){
             )
         ) AS distancia
         FROM sp_estacao_metro
+        WHERE latitude BETWEEN $lat_min AND $lat_max
+        AND longitude BETWEEN $lng_min AND $lng_max
         HAVING distancia <= 3
-        ORDER BY distancia;
+        ORDER BY distancia
         ";
 
     $result = mysqli_query($mysqli, $sql);
@@ -85,9 +96,15 @@ function estacoes_metro($lat, $lng, $mysqli){
 #TERMINAIS DE ÔNIBUS
 function terminais_onibus($lat, $lng, $mysqli){
     $lista = []; 
+    $bbox = getBoundingBox($lat, $lng, 5.0);
+
+    $lat_min = $bbox['lat_min'];
+    $lat_max = $bbox['lat_max'];
+    $lng_min = $bbox['lng_min'];
+    $lng_max = $bbox['lng_max'];
 
     $sql = "
-        SELECT *,
+        SELECT nome,
         (
             6371 * ACOS(
                 COS(RADIANS($lat)) * COS(RADIANS(latitude)) * 
@@ -96,8 +113,10 @@ function terminais_onibus($lat, $lng, $mysqli){
             )
         ) AS distancia
         FROM sp_terminal_onibus
+        WHERE latitude BETWEEN $lat_min AND $lat_max
+        AND longitude BETWEEN $lng_min AND $lng_max
         HAVING distancia <= 5
-        ORDER BY distancia;
+        ORDER BY distancia
         ";
 
     $result = mysqli_query($mysqli, $sql);
@@ -132,60 +151,56 @@ function seguranca($rua, $mysqli, $data_atual, $data_12_meses, $lat, $lng){
 }
 
 
-#RESTAURANTES PRÓXIMOS
-function buscar_restaurantes($lat, $lng, $apiKey, $raio = 1000) {
-    $url = "https://api.geoapify.com/v2/places?" .
-           "categories=catering.restaurant" .
-           "&filter=circle:$lng,$lat,$raio" .
-           "&limit=5" .
-           "&apiKey=$apiKey";
+$geoapify_api = '58a116017d2c4b869a0fb0216bdb937a';
+function buscar_lugares_paralelo($lat, $lng, $apiKey){
 
-    $json = file_get_contents($url);
-    $data = json_decode($json, true);
+    $urls = [
+        "restaurantes" => "https://api.geoapify.com/v2/places?categories=catering.restaurant&filter=circle:$lng,$lat,1000&limit=5&apiKey=$apiKey",
+        "supermercados" => "https://api.geoapify.com/v2/places?categories=commercial.supermarket&filter=circle:$lng,$lat,2000&limit=5&apiKey=$apiKey",
+        "farmacias" => "https://api.geoapify.com/v2/places?categories=healthcare.pharmacy&filter=circle:$lng,$lat,1000&limit=5&apiKey=$apiKey",
+        "hospitais" => "https://api.geoapify.com/v2/places?categories=healthcare.hospital&filter=circle:$lng,$lat,3000&limit=5&apiKey=$apiKey"
+    ];
 
-    return $data["features"] ?? [];
-}
+    $multi = curl_multi_init();
+    $channels = [];
 
-#SUPERMERCADOS PRÓXIMOS
-function buscar_supermercados($lat, $lng, $apiKey, $raio = 1000) {
-    $url = "https://api.geoapify.com/v2/places?" .
-           "categories=commercial.supermarket" .
-           "&filter=circle:$lng,$lat,$raio" .
-           "&limit=5" .
-           "&apiKey=$apiKey";
+    foreach ($urls as $key => $url) {
 
-    $json = file_get_contents($url);
-    $data = json_decode($json, true);
+        $ch = curl_init();
 
-    return $data["features"] ?? [];
-}
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 10
+        ]);
 
-#FARMÁCIAS PRÓXIMAS
-function buscar_farmacias($lat, $lng, $apiKey, $raio = 1000) {
-    $url = "https://api.geoapify.com/v2/places?" .
-           "categories=healthcare.pharmacy" .
-           "&filter=circle:$lng,$lat,$raio" .
-           "&limit=5" .
-           "&apiKey=$apiKey";
+        curl_multi_add_handle($multi, $ch);
+        $channels[$key] = $ch;
+    }
 
-    $json = file_get_contents($url);
-    $data = json_decode($json, true);
+    $running = null;
 
-    return $data["features"] ?? [];
-}
+    do {
+        curl_multi_exec($multi, $running);
+        curl_multi_select($multi);
+    } while ($running > 0);
 
-#HOSPITAIS PRÓXIMOS
-function buscar_hospitais($lat, $lng, $apiKey, $raio = 1000) {
-    $url = "https://api.geoapify.com/v2/places?" .
-           "categories=healthcare.hospital" .
-           "&filter=circle:$lng,$lat,$raio" .
-           "&limit=5" .
-           "&apiKey=$apiKey";
+    $resultado = [];
 
-    $json = file_get_contents($url);
-    $data = json_decode($json, true);
+    foreach ($channels as $key => $ch) {
 
-    return $data["features"] ?? [];
+        $response = curl_multi_getcontent($ch);
+        $data = json_decode($response, true);
+
+        $resultado[$key] = $data["features"] ?? [];
+
+        curl_multi_remove_handle($multi, $ch);
+        curl_close($ch);
+    }
+
+    curl_multi_close($multi);
+
+    return $resultado;
 }
 
 
@@ -236,28 +251,28 @@ function ocorrencias_geo_hidro($rua, $mysqli){
     $deslizamentos = [];
     $queda_arvore = [];
 
-    $alagamentos_sql = mysqli_query($mysqli,"SELECT * FROM sp_ocorrencias_geo_hidro WHERE ocorrencia = 'ALAGAMENTO' AND rua = '$rua'");
+    $alagamentos_sql = mysqli_query($mysqli,"SELECT ocorrencia FROM sp_ocorrencias_geo_hidro WHERE ocorrencia = 'ALAGAMENTO' AND rua = '$rua'");
     if($alagamentos_sql){
         while($row = $alagamentos_sql->fetch_assoc()){
             $alagamentos[] = $row;
         }
     }
 
-    $inundacoes_sql = mysqli_query($mysqli,"SELECT * FROM sp_ocorrencias_geo_hidro WHERE ocorrencia = 'INUNDACAO' AND rua = '$rua'");
+    $inundacoes_sql = mysqli_query($mysqli,"SELECT ocorrencia FROM sp_ocorrencias_geo_hidro WHERE ocorrencia = 'INUNDACAO' AND rua = '$rua'");
     if($inundacoes_sql){
         while($row = $inundacoes_sql->fetch_assoc()){
             $inundacoes[] = $row;
         }
     }
 
-    $deslizamentos_sql = mysqli_query($mysqli,"SELECT * FROM sp_ocorrencias_geo_hidro WHERE ocorrencia = 'DESLIZAMENTO' AND rua = '$rua'");
+    $deslizamentos_sql = mysqli_query($mysqli,"SELECT ocorrencia FROM sp_ocorrencias_geo_hidro WHERE ocorrencia = 'DESLIZAMENTO' AND rua = '$rua'");
     if($deslizamentos_sql){
         while($row = $deslizamentos_sql->fetch_assoc()){
             $deslizamentos[] = $row;
         }
     }
 
-    $queda_arvore_sql = mysqli_query($mysqli,"SELECT * FROM sp_ocorrencias_geo_hidro WHERE ocorrencia = 'QUEDA DE ARVORE' AND rua = '$rua'");
+    $queda_arvore_sql = mysqli_query($mysqli,"SELECT ocorrencia FROM sp_ocorrencias_geo_hidro WHERE ocorrencia = 'QUEDA DE ARVORE' AND rua = '$rua'");
     if($queda_arvore_sql){
         while($row = $queda_arvore_sql->fetch_assoc()){
             $queda_arvore[] = $row;
@@ -272,10 +287,13 @@ $ocorrencias_geo_hidro = ocorrencias_geo_hidro($rua, $mysqli);
 $pontos_onibus = pontos_onibus($lat, $lng, $mysqli);
 $estacoes_metro = estacoes_metro($lat, $lng, $mysqli);
 $terminais_onibus = terminais_onibus($lat,$lng,$mysqli);
-$restaurantes_proximos = buscar_restaurantes($lat, $lng, $geoapify_api, $raio = 1000);
-$supermercados_proximos = buscar_supermercados($lat, $lng, $geoapify_api, $raio = 2000);
-$farmacias_proximas = buscar_farmacias($lat, $lng, $geoapify_api, $raio = 1000);
-$hospitais_proximos = buscar_hospitais($lat, $lng, $geoapify_api, $raio = 3000);
+
+$lugares = buscar_lugares_paralelo($lat, $lng, $geoapify_api);
+$restaurantes_proximos = $lugares["restaurantes"];
+$supermercados_proximos = $lugares["supermercados"];
+$farmacias_proximas = $lugares["farmacias"];
+$hospitais_proximos = $lugares["hospitais"];
+
 $clima_tempo = buscar_ClimaTempo($lat, $lng, $data_12_meses, $data_atual );
 $seguranca = seguranca($rua, $mysqli, $data_atual, $data_12_meses, $lat, $lng);
 

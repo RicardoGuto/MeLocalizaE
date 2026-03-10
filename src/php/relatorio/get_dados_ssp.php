@@ -1,9 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header('Access-Control-Allow-Origin: http://localhost:3000');
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Content-Type: application/json; charset=utf-8");
-
+include('../headers.php');
 include('../config.php');
 
 $json = file_get_contents('php://input');

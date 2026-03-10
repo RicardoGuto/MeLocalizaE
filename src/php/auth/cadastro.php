@@ -1,17 +1,12 @@
 <?php  
 include('../config.php'); 
 include('../mail/sendmail.php');      
+include('../headers.php');
 
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: http://localhost:3000');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Pragma: no-cache");
+
 
 $usuario_id = bin2hex(random_bytes(10));
 $nome = $data['nome'];

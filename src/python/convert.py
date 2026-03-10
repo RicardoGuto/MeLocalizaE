@@ -3,7 +3,7 @@ import pandas as pd
 import fiona
 from pathlib import Path
 
-pasta = Path(r"./acidentes_cet")
+pasta = Path("D:\Melocalizae\Dados para Relatorio\Ocorrencias Defesa Civil\SIRGAS_GPKG_logradouronbl")
 
 dados_consolidados = []
 
@@ -30,7 +30,7 @@ for arquivo_gpkg in pasta.glob("*.gpkg"):
 
 if dados_consolidados:
     consolidado = pd.concat(dados_consolidados, ignore_index=True)
-    nome_saida = pasta / "acidentes_cet.csv"
+    nome_saida = pasta / "logradouro.csv"
     consolidado.to_csv(nome_saida, index=False, encoding="utf-8-sig")
     print(f"\nArquivo consolidado salvo em: {nome_saida}")
 else:

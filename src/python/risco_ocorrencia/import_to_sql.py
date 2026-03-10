@@ -18,9 +18,9 @@ cursor.execute("SET CHARACTER SET utf8mb4;")
 cursor.execute("SET character_set_connection=utf8mb4;")
 
 sql = """
-LOAD DATA LOCAL INFILE 'C:/xampp/htdocs/melocalizae/src/python/ssp/SPDadosCriminais_2026_jan.csv'
-INTO TABLE sp_ssp_data
-FIELDS TERMINATED BY ';'
+LOAD DATA LOCAL INFILE 'C:/xampp/htdocs/melocalizae/src/python/risco_ocorrencia/ocorrencias_com_rua_2026.csv'
+INTO TABLE sp_ocorrencias_geo_hidro
+FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES;

@@ -131,8 +131,6 @@ switch ($event->type) {
 
 break;
 
-
-
     case 'checkout.session.async_payment_succeeded':
 
         $session  = $event->data->object;

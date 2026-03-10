@@ -13,7 +13,7 @@ export default function LoadingRelatorio({loadBar, setLoadBar}){
             <div className="barra-loading-progresso">
                 <div className='barra-loading' style={{width: `${loadBar}%`}}></div>
             </div>
-            <p style={{color:'#888', fontSize:12, fontStyle:'italic', marginTop:5}}>Isso pode levar alguns segundos</p>
+            <p style={{color:'#888', fontSize:12, fontStyle:'italic', marginTop:5}}>Isso pode levar alguns minutos</p>
         </div>
     )
 }

@@ -93,3 +93,22 @@
     cursor: pointer;
     background-color: var(--header)
 }
+
+.faleconosco-body .faleconosco-form .error-msg{
+    padding: 10px;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #c71212a6;
+    border: 1px solid #c71212;
+    font-weight: bold;
+
+    width: 100%;
+}
+
+.faleconosco-body .faleconosco-form .error-msg p{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    color: #fff;
+}

@@ -3,10 +3,7 @@
 
 session_start();
 
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
+include('../headers.php');
 
 if(isset($_SESSION['logado'])){
     echo json_encode(["status" => "success", "data" => $_SESSION['usuario']]);
